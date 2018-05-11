@@ -1,11 +1,20 @@
 package com.hencoder.hencoderpracticedraw2.practice;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.ComposeShader;
 import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Shader;
+import android.graphics.Shader.TileMode;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import com.hencoder.hencoderpracticedraw2.R;
 
 public class Practice05ComposeShaderView extends View {
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -34,6 +43,12 @@ public class Practice05ComposeShaderView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.batman);
+        Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.batman_logo);
+        Shader shader = new BitmapShader(bitmap, TileMode.CLAMP, TileMode.CLAMP);
+        Shader logoShader = new BitmapShader(logoBitmap, TileMode.CLAMP, TileMode.CLAMP);
+        //混合着色器,两个Shader一起使用
+        paint.setShader(new ComposeShader(shader, logoShader, new PorterDuffXfermode(Mode.DST_IN)));
         canvas.drawCircle(200, 200, 200, paint);
     }
 }

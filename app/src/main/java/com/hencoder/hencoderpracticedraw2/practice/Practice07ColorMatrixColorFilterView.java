@@ -4,11 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-
 import com.hencoder.hencoderpracticedraw2.R;
 
 public class Practice07ColorMatrixColorFilterView extends View {
@@ -38,6 +39,9 @@ public class Practice07ColorMatrixColorFilterView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0.1f);
+        paint.setColorFilter(new ColorMatrixColorFilter(matrix));
         canvas.drawBitmap(bitmap, 0, 0, paint);
     }
 }
